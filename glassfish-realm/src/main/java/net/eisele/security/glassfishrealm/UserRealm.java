@@ -65,13 +65,13 @@ public class UserRealm extends AppservRealm {
      * @return String[] of the groups a user belongs to.
      * @throws Exception
      */
-    public List<String> authenticate(String name, String givenPwd) throws Exception {
+    public String[] authenticate(String name, String givenPwd) throws Exception {
         SecurityStore store = new SecurityStore(dataSource);
         // attempting to read the users-salt
         String salt = store.getSaltForUser(name);
 
         // Defaulting to a failed login by setting null
-        List<String> result = new ArrayList<>();
+        String[] result = null;
 
         if (salt != null) {
             Password pwd = new Password();
@@ -84,7 +84,7 @@ public class UserRealm extends AppservRealm {
             _logger.log(Level.FINE, "PWD Generated {0}", password);
             // validate password with the db
             if (store.validateUser(name, password)) {
-                result.add("ValidUser");
+                result[0] = "ValidUser";
             }
         }
         return result;
