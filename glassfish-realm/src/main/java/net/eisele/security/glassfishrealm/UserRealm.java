@@ -33,7 +33,7 @@ public class UserRealm extends AppservRealm {
     @Override
     protected void init(Properties props) throws BadRealmException, NoSuchRealmException {
         _logger.fine("init()");
-        jaasCtxName = props.getProperty("jaas-context", "UserRealm");
+        jaasCtxName = props.getProperty("jaas-context", "userRealm");
         dataSource = props.getProperty("dataSource", "jdbc/userdb");
     }
 
@@ -71,7 +71,7 @@ public class UserRealm extends AppservRealm {
         String salt = store.getSaltForUser(name);
 
         // Defaulting to a failed login by setting null
-        String[] result = null;
+        List<String> results = new ArrayList<>();
 
         if (salt != null) {
             Password pwd = new Password();
@@ -84,10 +84,10 @@ public class UserRealm extends AppservRealm {
             _logger.log(Level.FINE, "PWD Generated {0}", password);
             // validate password with the db
             if (store.validateUser(name, password)) {
-                result[0] = "ValidUser";
+                results.add("ValidUser");
             }
         }
-        return result;
+        return results.toArray(new String[results.size()]);
     }
 
     /**

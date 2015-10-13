@@ -27,7 +27,8 @@ public class UserTest {
     public static void addUsers() {
         String user1 = "user1";
         String user2 = "user2";
-        String passwordStr = "TestPassword";
+        String passwordStr = "TestPassword"
+                + "";
         Password pwd = new Password();
 
         byte[] saltBytes = pwd.getSalt(64);
