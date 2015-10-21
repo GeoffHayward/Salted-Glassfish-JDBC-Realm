@@ -3,7 +3,7 @@ glassfish-jdbc-realm-ehanced
 A working salted glassfish/payara realm.
 
 The original work for this realm was by Markus Eisele. Here is the related blog-post 
-http://blog.eisele.net/2012/07/glassfish-jdbc-security-with-salted.html relating to the original work.
+http://blog.eisele.net/2012/07/glassfish-jdbc-security-with-salted.html that is relating to the original work.
 
 ==========================
 
