@@ -15,12 +15,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-/**
- * Database abstraction for a User and a Group table to use with a GlassFish
- * realm.
- *
- * @author eiselem
- */
 public class RolesSecurityStore {
 
     private Connection con;
