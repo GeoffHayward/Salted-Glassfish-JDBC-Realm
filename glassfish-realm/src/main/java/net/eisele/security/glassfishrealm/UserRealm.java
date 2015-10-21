@@ -2,9 +2,7 @@ package net.eisele.security.glassfishrealm;
 
 import com.sun.appserv.security.AppservRealm;
 import com.sun.enterprise.security.auth.realm.BadRealmException;
-import com.sun.enterprise.security.auth.realm.InvalidOperationException;
 import com.sun.enterprise.security.auth.realm.NoSuchRealmException;
-import com.sun.enterprise.security.auth.realm.NoSuchUserException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -12,6 +10,7 @@ import java.util.Properties;
 import java.util.logging.Level;
 import net.eisele.security.util.Password;
 import net.eisele.security.util.SecurityStore;
+import org.geoffhayward.security.RolesSecurityStore;
 
 /**
  * High Security UserRealm for GlassFish Server. Implementing password salting.
@@ -60,7 +59,7 @@ public class UserRealm extends AppservRealm {
     /**
      * Authenticates a user against GlassFish
      *
-     * @param uid The User ID
+     * @param name The User ID
      * @param givenPwd The Password to check
      * @return String[] of the groups a user belongs to.
      * @throws Exception
@@ -71,8 +70,6 @@ public class UserRealm extends AppservRealm {
         String salt = store.getSaltForUser(name);
 
         // Defaulting to a failed login by setting null
-        List<String> results = new ArrayList<>();
-
         if (salt != null) {
             Password pwd = new Password();
             // get the byte[] from the salt
@@ -84,18 +81,25 @@ public class UserRealm extends AppservRealm {
             _logger.log(Level.FINE, "PWD Generated {0}", password);
             // validate password with the db
             if (store.validateUser(name, password)) {
-                results.add("ValidUser");
+                List<String> results = new ArrayList<>();
+                Enumeration<String> roles = getGroupNames(name);
+                while (roles.hasMoreElements()) {
+                    results.add((String) roles.nextElement());
+                }
+                return results.toArray(new String[results.size()]);
             }
         }
-        return results.toArray(new String[results.size()]);
+        return null;
     }
 
     /**
-     * {@inheritDoc }
+     *
+     * @param username
+     * @return
      */
     @Override
-    public Enumeration getGroupNames(String string) throws InvalidOperationException, NoSuchUserException {
-        //never called. Only here to make compiler happy.
-        return null;
+    public Enumeration getGroupNames(String username) {
+        RolesSecurityStore store = new RolesSecurityStore(dataSource);
+        return store.getGroupsForUser(username);
     }
 }

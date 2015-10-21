@@ -1,8 +1,6 @@
 package org.geoffhayward.security;
 
 import com.sun.appserv.security.AppservPasswordLoginModule;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.security.auth.login.LoginException;
@@ -28,8 +26,6 @@ public class LoginModule extends AppservPasswordLoginModule {
         }
         
         commitUserAuthentication(groups);
-        
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
