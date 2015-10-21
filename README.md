@@ -9,7 +9,6 @@ http://blog.eisele.net/2012/07/glassfish-jdbc-security-with-salted.html that is 
 
 Build it as a jar. Copy the jar to {GLASSFISH_HOME}/domain/lib. Then add the folowing to your database:
 <pre>
-USE jdbcrealmdb;
 CREATE TABLE `users` (
 `username` varchar(255) NOT NULL,
 `salt` varchar(255) NOT NULL,
