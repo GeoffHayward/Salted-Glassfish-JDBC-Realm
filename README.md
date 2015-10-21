@@ -2,12 +2,12 @@ glassfish-jdbc-realm-ehanced
 ============================
 A working salted glassfish/payara realm.
 
-The original work for this realm was by Markus Eisele. Here is the related blog-post 
+The original work for this realm is by Markus Eisele. Here is the related blog-post 
 http://blog.eisele.net/2012/07/glassfish-jdbc-security-with-salted.html that is relating to the original work.
 
 ==========================
 
-Build it as a jar. Copy the {GLASSFISH_HOME}/domain/lib. Then add the folowing to your database:
+Build it as a jar. Copy the jar to {GLASSFISH_HOME}/domain/lib. Then add the folowing to your database:
 <pre>
 USE jdbcrealmdb;
 CREATE TABLE `users` (
