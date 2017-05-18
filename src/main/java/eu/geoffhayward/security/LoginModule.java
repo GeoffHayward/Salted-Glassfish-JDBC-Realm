@@ -1,4 +1,4 @@
-package org.geoffhayward.security;
+package eu.geoffhayward.security;
 
 import com.sun.appserv.security.AppservPasswordLoginModule;
 import java.util.logging.Level;

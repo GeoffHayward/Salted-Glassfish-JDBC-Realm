@@ -1,4 +1,4 @@
-package org.geoffhayward.security;
+package eu.geoffhayward.security;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
